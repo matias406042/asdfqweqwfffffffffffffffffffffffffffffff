@@ -4,13 +4,18 @@ import ar.edu.utn.frc.tup.lc.iv.dtos.common.CreateProductDTO;
 import ar.edu.utn.frc.tup.lc.iv.dtos.common.ProductXDetailDTO;
 import ar.edu.utn.frc.tup.lc.iv.entities.*;
 import ar.edu.utn.frc.tup.lc.iv.models.ProductCategory;
+import ar.edu.utn.frc.tup.lc.iv.models.State;
 import ar.edu.utn.frc.tup.lc.iv.models.Supplier;
 import ar.edu.utn.frc.tup.lc.iv.repositories.ProductRepository;
 import ar.edu.utn.frc.tup.lc.iv.services.DetailProductService;
 import ar.edu.utn.frc.tup.lc.iv.services.ProductsCategoriesService;
 import ar.edu.utn.frc.tup.lc.iv.services.SupplierService;
 import ar.edu.utn.frc.tup.lc.iv.entities.ProductEntity;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 
@@ -22,8 +27,10 @@ import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
+@SpringBootTest
 class ProductServiceImplTest {
 
     @SpyBean
@@ -41,62 +48,35 @@ class ProductServiceImplTest {
     @MockBean
     private DetailProductService detailProductService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+
     @Test
     void createProduct() {
         ArrayList<ProductEntity> products = new ArrayList<ProductEntity>();
-        ProductEntity productEntity = new ProductEntity();
         SupplierEntity supplier = new SupplierEntity();
-        products.add(productEntity);
+        supplier.setId(1);
         ProductsCategoriesEntity category = new ProductsCategoriesEntity();
+        category.setId(1);
+        category.setCategory("category");
         CreateProductDTO dto= new CreateProductDTO("Producto1",true,1,1,1,"description",1,1);
-        DetailProductEntity detailProductEntity = new DetailProductEntity();
-        ProductXDetailDTO expected = new ProductXDetailDTO();
+        ProductEntity productEntity = new ProductEntity("Producto1",1,true,true,1,category);
+        ProductEntity productEntity2 = new ProductEntity("Producto1",1,true,true,1,category);
+        productEntity2.setId(1);
+        DetailProductEntity detailProductEntity = new DetailProductEntity("description", State.available, productEntity, 1, supplier);
+        ProductXDetailDTO expected = new ProductXDetailDTO(1,"Producto1",1,true,true,1,"category",
+                "description",State.available,1,1,1);
 
-        when(productRepository.findByName(any())).thenReturn(products);
-        when(supplierService.getSupplierById(any())).thenReturn(supplier);
-        when(productsCategoriesService.getProductCategoryById(any())).thenReturn(category);
-        when(detailProductService.saveDetailProduct(any())).thenReturn(detailProductEntity);
-        when(productRepository.save(any())).thenReturn(productEntity);
+        when(productRepository.findByName("Producto1")).thenReturn(products);
+        when(supplierService.getSupplierById(1)).thenReturn(supplier);
+        when(productsCategoriesService.getProductCategoryById(1)).thenReturn(category);
+        when(detailProductService.saveDetailProduct(eq(detailProductEntity))).thenReturn(detailProductEntity);
+        when(productRepository.save(eq(productEntity))).thenReturn(productEntity2);
 
-        
+        ProductXDetailDTO result = productService.createProduct(dto);
+        Assertions.assertEquals(expected,result);
     }
+    
 
-    /*//si no existe un producto con:
-    // -el mismo nombre
-    // -un proveedor inexistente
-    // -una categoria inexistente
-    // , se crea un nuevo producto junto con su detalle
-
-    @Override
-    @Transactional
-    public ProductXDetailDTO createProduct(CreateProductDTO DTO) {
-        ArrayList<ProductEntity> products =productRepository.findByName(DTO.getName());
-        if(products.size()>0){
-            if(products.size()==1){
-                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,"Ya existe un producto con ese nombre");
-            }else{
-                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,"Existen "+products.size()+" productos con ese nombre");
-            }
-        }
-        SupplierEntity supplier = null;
-        if(DTO.getSupplierId() != null){
-            supplier = supplierService.getSupplierById(DTO.getSupplierId());
-            if(supplier==null){
-                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,"No existe el proveedor ingresado");
-            }
-        }
-        ProductsCategoriesEntity category = productsCategoriesService.getProductCategoryById(DTO.getCategoryId());
-        if(category==null){
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,"No existe la categoria ingresada");
-        }
-        ProductEntity Pentity = modelMapper.map(DTO, ProductEntity.class);
-        DetailProductEntity Dentity = modelMapper.map(DTO, DetailProductEntity.class);
-        Dentity.setState(State.available);
-        Dentity.setProduct(Pentity);
-        Dentity.setSupplier(supplier);
-        Dentity=detailProductService.saveDetailProduct(Dentity);
-        Pentity.setCategory(category);
-        Pentity=productRepository.save(Pentity);
-        return modelMapper.map(Dentity, ProductXDetailDTO.class);
-    }*/
 }

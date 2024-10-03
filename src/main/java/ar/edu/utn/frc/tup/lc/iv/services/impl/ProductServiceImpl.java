@@ -73,14 +73,16 @@ public class ProductServiceImpl implements ProductService {
         if(category==null){
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,"No existe la categoria ingresada");
         }
-        ProductEntity Pentity = modelMapper.map(DTO, ProductEntity.class);
-        DetailProductEntity Dentity = modelMapper.map(DTO, DetailProductEntity.class);
-        Dentity.setState(State.available);
-        Dentity.setProduct(Pentity);
-        Dentity.setSupplier(supplier);
+        ProductEntity Pentity = new ProductEntity(DTO.getName(),DTO.getAmount(),true,DTO.getReusable(),DTO.getMin_amount_warning(),category);
+        DetailProductEntity Dentity = new DetailProductEntity(DTO.getDescription(), State.available, Pentity, DTO.getUnit_price(), supplier);
         Dentity=detailProductService.saveDetailProduct(Dentity);
-        Pentity.setCategory(category);
         Pentity=productRepository.save(Pentity);
-        return modelMapper.map(Dentity, ProductXDetailDTO.class);
+        ProductXDetailDTO response= modelMapper.map(Pentity, ProductXDetailDTO.class);
+        response.setDetail(Dentity.getDetail());
+        response.setState(Dentity.getState());
+        response.setUnit_price(Dentity.getUnitPrice());
+        response.setProduct_id(Pentity.getId());
+        response.setSupplier_id(supplier.getId());
+        return response;
     }
 }

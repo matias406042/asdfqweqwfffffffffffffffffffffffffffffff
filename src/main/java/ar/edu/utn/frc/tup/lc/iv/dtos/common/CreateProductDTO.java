@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
@@ -23,18 +20,20 @@ public class CreateProductDTO {
     @NotNull(message = "Reusable is required")
     private boolean reusable;
     @NotNull(message = "The minimum amount for warning is required")
-    private int minAmountWarning;
+    private int min_amount_warning;
     @NotNull(message = "The amount is required")
     private int amount;
     @JsonProperty("supplier_id")
     private Integer supplierId;
     private String description;
     @NotNull
-    private double unitPrice;
+    private double unit_price;
     @NotNull
     @JsonProperty("category_id")
     private int categoryId;
 
 
-
+    public boolean getReusable() {
+        return reusable;
+    }
 }

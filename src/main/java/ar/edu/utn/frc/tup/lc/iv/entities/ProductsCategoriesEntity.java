@@ -19,7 +19,6 @@ public class ProductsCategoriesEntity {
     private Integer id;
 
     private String category;
-    //todo cambiar en demas entites. estandar de id en Integer
 
 }
 
