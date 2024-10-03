@@ -1,5 +1,7 @@
 package ar.edu.utn.frc.tup.lc.iv.dtos.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,20 +15,24 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CreateProductDTO {
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "Name is required")
+    @NotEmpty(message = "Name is required")
     private String name;
+    @NotNull(message = "Reusable is required")
     private boolean reusable;
-    @NotNull
+    @NotNull(message = "The minimum amount for warning is required")
     private int minAmountWarning;
-    @NotNull
+    @NotNull(message = "The amount is required")
     private int amount;
-    private int supplierId;
+    @JsonProperty("supplier_id")
+    private Integer supplierId;
     private String description;
     @NotNull
     private double unitPrice;
     @NotNull
+    @JsonProperty("category_id")
     private int categoryId;
 
 

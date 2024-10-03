@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 public class SupplierEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String name;
     @Column(name = "health_insurance")
     private Long healthInsurance;
     private boolean authorized;
     private Long address;
-
+//todo capaz faltan cosas en las entities
 }

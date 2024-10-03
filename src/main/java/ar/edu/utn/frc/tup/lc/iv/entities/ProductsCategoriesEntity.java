@@ -16,10 +16,10 @@ public class ProductsCategoriesEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String category;
-
+    //todo cambiar en demas entites. estandar de id en Integer
 
 }
 
