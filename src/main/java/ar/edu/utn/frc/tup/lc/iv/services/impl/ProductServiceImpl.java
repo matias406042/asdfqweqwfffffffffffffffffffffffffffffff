@@ -81,8 +81,8 @@ public class ProductServiceImpl implements ProductService {
         response.setDetail(Dentity.getDetail());
         response.setState(Dentity.getState());
         response.setUnit_price(Dentity.getUnitPrice());
-        response.setProduct_id(Pentity.getId());
-        response.setSupplier_id(supplier.getId());
+        response.setProduct_id(Pentity.getProduct_id());
+        response.setSupplier_id(supplier.getSupplier_id());
         return response;
     }
 }

@@ -17,7 +17,7 @@ public class DetailProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer detail_product_id;
 
     private String detail;
 

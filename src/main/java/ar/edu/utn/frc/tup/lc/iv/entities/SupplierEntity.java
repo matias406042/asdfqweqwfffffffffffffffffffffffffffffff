@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class SupplierEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer supplier_id;
     private String name;
     @Column(name = "health_insurance")
     private Long healthInsurance;

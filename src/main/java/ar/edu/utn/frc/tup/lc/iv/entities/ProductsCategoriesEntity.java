@@ -16,7 +16,7 @@ public class ProductsCategoriesEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer category_id;
 
     private String category;
 
