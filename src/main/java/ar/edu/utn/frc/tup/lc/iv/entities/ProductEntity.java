@@ -21,7 +21,6 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer product_id;
     private String name;
-    private Integer stock;
     private boolean active;
     private boolean reusable;
     @Column(name = "min_amount_warning")
@@ -31,12 +30,9 @@ public class ProductEntity {
     @JoinColumn(name = "category_id")
     private ProductsCategoriesEntity category;
 
-    @OneToMany()
-    private List<DetailProductEntity> detailProduct;
 
-    public ProductEntity(String name, Integer stock, boolean active, boolean reusable, int minAmountWarning, ProductsCategoriesEntity category) {
+    public ProductEntity(String name, boolean active, boolean reusable, int minAmountWarning, ProductsCategoriesEntity category) {
         this.name = name;
-        this.stock = stock;
         this.active = active;
         this.reusable = reusable;
         this.min_amount_warning = minAmountWarning;

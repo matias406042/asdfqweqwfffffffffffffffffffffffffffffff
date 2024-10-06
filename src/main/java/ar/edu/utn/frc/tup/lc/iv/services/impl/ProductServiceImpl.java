@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -73,14 +74,19 @@ public class ProductServiceImpl implements ProductService {
         if(category==null){
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,"No existe la categoria ingresada");
         }
-        ProductEntity Pentity = new ProductEntity(DTO.getName(),DTO.getAmount(),true,DTO.getReusable(),DTO.getMin_amount_warning(),category);
-        DetailProductEntity Dentity = new DetailProductEntity(DTO.getDescription(), State.available, Pentity, DTO.getUnit_price(), supplier);
-        Dentity=detailProductService.saveDetailProduct(Dentity);
-        Pentity=productRepository.save(Pentity);
+        ProductEntity Pentity = new ProductEntity(DTO.getName(),true,DTO.getReusable(),DTO.getMin_amount_warning(),category);
+        List<DetailProductEntity> Dentities = new ArrayList<>();
+        for (int i = 0; i < DTO.getAmount(); i++) {
+            DetailProductEntity Dentity = new DetailProductEntity(DTO.getDescription(), State.available, Pentity, DTO.getUnit_price(), supplier);
+            Dentities.add(Dentity);
+        }
+        detailProductService.saveAll(Dentities);
+        productRepository.save(Pentity);
         ProductXDetailDTO response= modelMapper.map(Pentity, ProductXDetailDTO.class);
-        response.setDetail(Dentity.getDetail());
-        response.setState(Dentity.getState());
-        response.setUnit_price(Dentity.getUnitPrice());
+        //el response ProductXDetailDTO solo representa un producto y todos sus items/detalles
+        response.setDetail(Dentities.get(0).getDetail());
+        response.setState(Dentities.get(0).getState());
+        response.setUnit_price(Dentities.get(0).getUnitPrice());
         response.setProduct_id(Pentity.getProduct_id());
         response.setSupplier_id(supplier.getSupplier_id());
         return response;

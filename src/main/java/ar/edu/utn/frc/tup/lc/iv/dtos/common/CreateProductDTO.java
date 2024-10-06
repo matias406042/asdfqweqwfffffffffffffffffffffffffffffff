@@ -2,6 +2,7 @@ package ar.edu.utn.frc.tup.lc.iv.dtos.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -22,6 +23,7 @@ public class CreateProductDTO {
     @NotNull(message = "The minimum amount for warning is required")
     private int min_amount_warning;
     @NotNull(message = "The amount is required")
+    @Min(value = 1, message = "The amount must be greater than 0")
     private int amount;
     @JsonProperty("supplier_id")
     private Integer supplierId;

@@ -35,6 +35,8 @@ public class DetailProductEntity {
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private SupplierEntity supplier;
+    private Integer amount;
+    private boolean active;
 
     public DetailProductEntity(String detail, State state, ProductEntity product, double unitPrice, SupplierEntity supplier) {
         this.detail = detail;

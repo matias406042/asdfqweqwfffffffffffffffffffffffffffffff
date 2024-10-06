@@ -19,7 +19,6 @@ public class ProductXDetailDTO {
     //atributos del producto
     private Integer product_id;
     private String name;
-    private Integer stock;
     private boolean active;
     private boolean reusable;
     private int min_amount_warning;
