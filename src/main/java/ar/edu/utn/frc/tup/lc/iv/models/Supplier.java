@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Supplier {
+    private Integer id;
     private String name;
     private Long healthInsurance;
     private boolean authorized;
-    private Long address;
-    
+    private String address;
+    private Integer supplierTypeId;
+    private String description;
 }

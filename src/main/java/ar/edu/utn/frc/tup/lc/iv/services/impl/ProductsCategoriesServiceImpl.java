@@ -20,7 +20,8 @@ public class ProductsCategoriesServiceImpl implements ProductsCategoriesService 
 
     @Override
     public Iterable<ProductCategory> getProductsCategories() {
-        return productsCategoriesRepository.findAll().stream().map(productsCategoriesEntity -> new ProductCategory(productsCategoriesEntity.getCategory())).collect(Collectors.toList());
+        return productsCategoriesRepository.findAll().stream().map(productsCategoriesEntity -> new ProductCategory(
+                productsCategoriesEntity.getCategory_id(),productsCategoriesEntity.getCategory())).collect(Collectors.toList());
     }
 
     public ProductsCategoriesEntity getProductCategoryById(Integer id) {

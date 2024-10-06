@@ -38,6 +38,15 @@ public class DetailProductEntity {
     private Integer amount;
     private boolean active;
 
+    @Column(name = "created_datetime")
+    private String createdDatetime;
+    @Column(name = "created_user")
+    private String createdUser;
+    @Column(name = "last_update_datetime")
+    private String lastUpdateDatetime;
+    @Column(name = "last_updated_user")
+    private String lastUpdatedUser;
+
     public DetailProductEntity(String detail, State state, ProductEntity product, double unitPrice, SupplierEntity supplier) {
         this.detail = detail;
         this.state = state;

@@ -31,6 +31,15 @@ public class ProductEntity {
     private ProductsCategoriesEntity category;
 
 
+    @Column(name = "created_datetime")
+    private String createdDatetime;
+    @Column(name = "created_user")
+    private String createdUser;
+    @Column(name = "last_update_datetime")
+    private String lastUpdateDatetime;
+    @Column(name = "last_updated_user")
+    private String lastUpdatedUser;
+
     public ProductEntity(String name, boolean active, boolean reusable, int minAmountWarning, ProductsCategoriesEntity category) {
         this.name = name;
         this.active = active;

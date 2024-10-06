@@ -20,5 +20,15 @@ public class ProductsCategoriesEntity {
 
     private String category;
 
+
+    @Column(name = "created_datetime")
+    private String createdDatetime;
+    @Column(name = "created_user")
+    private String createdUser;
+    @Column(name = "last_update_datetime")
+    private String lastUpdateDatetime;
+    @Column(name = "last_updated_user")
+    private String lastUpdatedUser;
+
 }
 
