@@ -1,53 +1,52 @@
-package ar.edu.utn.frc.tup.lc.iv.entities;
+package ar.edu.utn.frc.tup.lc.iv.Entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
 @Data
-@AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
-@Table(name = "products")
+@AllArgsConstructor
+@Entity
+@Table(name = "Products")
 public class ProductEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer product_id;
-    private String name;
-    private boolean active;
-    private boolean reusable;
-    @Column(name = "min_amount_warning")
-    @JsonProperty("min_amount_warning")
-    private int min_amount_warning;
-    @ManyToOne()
-    @JoinColumn(name = "category_id")
-    private ProductsCategoriesEntity category;
+    Integer id;
 
+    @Column(name = "name")
+    String name;
+
+    @Column(name = "reusable")
+    Boolean reusable;
+
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    CategoryEntity category;
+
+    @Column(name = "min_quantity_warning")
+    Integer minQuantityWarning;
+
+    @Column(name = "amount")
+    Integer amount;
 
     @Column(name = "created_datetime")
-    private String createdDatetime;
+    LocalDateTime createdDatetime;
+
     @Column(name = "created_user")
-    private String createdUser;
-    @Column(name = "last_update_datetime")
-    private String lastUpdateDatetime;
+    Integer createdUser;
+
+    @Column(name = "last_updated_datetime")
+    LocalDateTime lastUpdatedDatetime;
+
     @Column(name = "last_updated_user")
-    private String lastUpdatedUser;
+    Integer lastUpdatedUser;
 
-    public ProductEntity(String name, boolean active, boolean reusable, int minAmountWarning, ProductsCategoriesEntity category) {
-        this.name = name;
-        this.active = active;
-        this.reusable = reusable;
-        this.min_amount_warning = minAmountWarning;
-        this.category = category;
-    }
-
-
-
+    @OneToMany(mappedBy = "product")
+    List<DetailProductEntity> detailProducts;
 }

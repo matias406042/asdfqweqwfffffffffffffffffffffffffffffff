@@ -1,59 +1,46 @@
-package ar.edu.utn.frc.tup.lc.iv.entities;
+package ar.edu.utn.frc.tup.lc.iv.Entities;
 
-import ar.edu.utn.frc.tup.lc.iv.models.State;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import ar.edu.utn.frc.tup.lc.iv.Models.State;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+import java.time.LocalDateTime;
+
 @Data
-@AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
-@Table(name = "detail_products")
+@AllArgsConstructor
+@Entity
+@Table(name = "Products_Details")
 public class DetailProductEntity {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer detail_product_id;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    Integer id;
 
-    private String detail;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "state")
-    private State state;
-
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    private ProductEntity product;
+    ProductEntity product;
 
-    @Column(name = "unit_price")
-    private double unitPrice;
+    @Column(name = "description")
+    String description;
 
-    @ManyToOne
-    @JoinColumn(name = "supplier_id")
-    private SupplierEntity supplier;
-    private Integer amount;
-    private boolean active;
+    @Column(name = "supplier_id")
+    Integer supplierId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "state_id")
+    StateEntity state;
 
     @Column(name = "created_datetime")
-    private String createdDatetime;
+    LocalDateTime createdDatetime;
+
     @Column(name = "created_user")
-    private String createdUser;
-    @Column(name = "last_update_datetime")
-    private String lastUpdateDatetime;
+    Integer createdUser;
+
+    @Column(name = "last_updated_datetime")
+    LocalDateTime lastUpdatedDatetime;
+
     @Column(name = "last_updated_user")
-    private String lastUpdatedUser;
-
-    public DetailProductEntity(String detail, State state, ProductEntity product, double unitPrice, SupplierEntity supplier) {
-        this.detail = detail;
-        this.state = state;
-        this.product = product;
-        this.unitPrice = unitPrice;
-        this.supplier = supplier;
-    }
-
-
+    Integer lastUpdatedUser;
 }
