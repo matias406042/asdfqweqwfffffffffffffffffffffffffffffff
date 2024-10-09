@@ -1,4 +1,4 @@
-package ar.edu.utn.frc.tup.lc.iv.Entities;
+package ar.edu.utn.frc.tup.lc.iv.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.List;
 public class ProductEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     Integer id;
 
     @Column(name = "name")
@@ -32,8 +32,6 @@ public class ProductEntity {
     @Column(name = "min_quantity_warning")
     Integer minQuantityWarning;
 
-    @Column(name = "amount")
-    Integer amount;
 
     @Column(name = "created_datetime")
     LocalDateTime createdDatetime;
@@ -50,3 +48,4 @@ public class ProductEntity {
     @OneToMany(mappedBy = "product")
     List<DetailProductEntity> detailProducts;
 }
+

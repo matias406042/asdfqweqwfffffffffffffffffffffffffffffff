@@ -1,4 +1,4 @@
-package ar.edu.utn.frc.tup.lc.iv.services.impl;
+package ar.edu.utn.frc.tup.lc.iv.services.Impl;
 
 import ar.edu.utn.frc.tup.lc.iv.entities.SupplierEntity;
 import ar.edu.utn.frc.tup.lc.iv.models.Supplier;
@@ -27,7 +27,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public Iterable<Supplier> getAll() {
         return supplierRepository.findAll().stream().map(supplierEntity -> new Supplier(
-                supplierEntity.getSupplier_id(),supplierEntity.getName(),supplierEntity.getHealthInsurance(),
+                supplierEntity.getId(),supplierEntity.getName(),supplierEntity.getHealthInsurance(),
                 supplierEntity.isAuthorized(),supplierEntity.getAddress(),supplierEntity.getSupplierTypeId(),supplierEntity.getDescription())).collect(Collectors.toList());
 
 

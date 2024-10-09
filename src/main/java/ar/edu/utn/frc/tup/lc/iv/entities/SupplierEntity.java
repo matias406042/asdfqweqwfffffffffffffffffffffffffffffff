@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class SupplierEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer supplier_id;
+    private Integer id ;
     private String name;
     @Column(name = "health_insurance")
     private Long healthInsurance;
@@ -23,8 +23,6 @@ public class SupplierEntity {
     @Column(name = "supplier_type_id")
     private Integer supplierTypeId;
     private String description;
-
-
     @Column(name = "created_datetime")
     private String createdDatetime;
     @Column(name = "created_user")

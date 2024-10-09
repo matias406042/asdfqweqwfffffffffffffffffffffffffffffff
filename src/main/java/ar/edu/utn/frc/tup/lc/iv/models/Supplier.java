@@ -16,4 +16,6 @@ public class Supplier {
     private String address;
     private Integer supplierTypeId;
     private String description;
+
+
 }

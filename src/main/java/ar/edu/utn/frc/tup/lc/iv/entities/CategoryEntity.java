@@ -1,6 +1,5 @@
-package ar.edu.utn.frc.tup.lc.iv.Entities;
+package ar.edu.utn.frc.tup.lc.iv.entities;
 
-import ar.edu.utn.frc.tup.lc.iv.Models.State;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,25 +11,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Products_Details")
-public class DetailProductEntity {
+@Table(name = "Products_Categories")
+public class CategoryEntity {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    ProductEntity product;
-
-    @Column(name = "description")
-    String description;
-
-    @Column(name = "supplier_id")
-    Integer supplierId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "state_id")
-    StateEntity state;
+    @Column(name = "category")
+    String category;
 
     @Column(name = "created_datetime")
     LocalDateTime createdDatetime;

@@ -1,22 +1,22 @@
-package ar.edu.utn.frc.tup.lc.iv.Models;
+package ar.edu.utn.frc.tup.lc.iv.models;
 
+import ar.edu.utn.frc.tup.lc.iv.models.enums.DetailProductState;
+import ar.edu.utn.frc.tup.lc.iv.models.enums.SupplierType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import javax.swing.plaf.nimbus.State;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class DetailProduct {
-    Integer id;
-    Integer productId;
-    String description;
-    Integer supplierId;
-    State state;
-    LocalDateTime createdDatetime;
-    Integer createdUser;
-    LocalDateTime lastUpdateDatetime;
-    Integer lastUpdatedUser;
+   private Integer id;
+   private Integer productId;
+   private String description;
+   private ar.edu.utn.frc.tup.lc.iv.models.Supplier supplier;
+   private DetailProductState state;
+
+
 }

@@ -1,6 +1,6 @@
 package ar.edu.utn.frc.tup.lc.iv.controllers;
 
-import ar.edu.utn.frc.tup.lc.iv.Services.ICategoryService;
+import ar.edu.utn.frc.tup.lc.iv.services.ICategoryService;
 import ar.edu.utn.frc.tup.lc.iv.dtos.common.Category.DtoGetCategoryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
